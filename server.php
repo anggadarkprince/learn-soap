@@ -103,7 +103,7 @@ $server = new Zend\Soap\Server(null, [
 //$server->setClass('Hello');
 //$server->handle();
 
-if (isset($_GET['wsdl'])) {
+if (isset($_GET['wsdl']) && $_SERVER['REQUEST_METHOD'] === 'GET') {
     $soapAutoDiscover = new \Zend\Soap\AutoDiscover(new \Zend\Soap\Wsdl\ComplexTypeStrategy\ArrayOfTypeSequence());
     $soapAutoDiscover->setBindingStyle(array('style' => 'document'))
         ->setOperationBodyStyle(array('use' => 'literal'))
