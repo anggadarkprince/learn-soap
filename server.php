@@ -100,16 +100,20 @@ $server = new Zend\Soap\Server(null, [
     'uri' => $serverUrl,
     'cache_wsdl' => WSDL_CACHE_NONE
 ]);
+//$server->setClass('Hello');
+//$server->handle();
 
 if (isset($_GET['wsdl'])) {
     $soapAutoDiscover = new \Zend\Soap\AutoDiscover(new \Zend\Soap\Wsdl\ComplexTypeStrategy\ArrayOfTypeSequence());
-    $soapAutoDiscover->setBindingStyle(array('style' => 'document'));
-    $soapAutoDiscover->setOperationBodyStyle(array('use' => 'literal'));
-    $soapAutoDiscover->setClass('Hello');
-    $soapAutoDiscover->setUri($serverUrl);
+    $soapAutoDiscover->setBindingStyle(array('style' => 'document'))
+        ->setOperationBodyStyle(array('use' => 'literal'))
+        ->setClass('Hello')
+        ->setUri($serverUrl);
+    $wsdl = $soapAutoDiscover->generate();
+    $wsdl->dump("service.wsdl");
 
     header("Content-Type: text/xml");
-    echo $soapAutoDiscover->generate()->toXml();
+    echo $wsdl->toXml();
 } else {
     $soap = new \Zend\Soap\Server($serverUrl . '?wsdl');
     $soap->setObject(new \Zend\Soap\Server\DocumentLiteralWrapper(new Hello()));

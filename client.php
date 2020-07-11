@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
 
-$client = new Zend\Soap\Client('http://localhost/soap/server.php?wsdl');
+$client = new Zend\Soap\Client('http://localhost/soap/server.php');
 
 echo '<pre>';
 print_r($client->getFunctions());

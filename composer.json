@@ -13,6 +13,7 @@
     },
     "require": {
         "zendframework/zend-soap": "^2.8",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-soap": "*"
     }
 }
